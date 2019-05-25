@@ -12,11 +12,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SplashActivity extends AppCompatActivity {
-    private Class[] clazzs = new Class[]{
+    public static Class[] clazzs = new Class[]{
             SurfaceViewActivity.class,
             CameraTextureViewActivity.class,
             CameraSurfaceActivity.class,
-            MediaMuxerActivity.class
+            MediaMuxerActivity.class,
+            OpenGLESActivity.class
     };
 
     @Override
