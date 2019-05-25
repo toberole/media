@@ -12,7 +12,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SplashActivity extends AppCompatActivity {
-    private Class clazz = SurfaceViewActivity.class;
+    private Class[] clazzs = new Class[]{
+            SurfaceViewActivity.class,
+            CameraTextureViewActivity.class,
+            CameraSurfaceActivity.class,
+            MediaMuxerActivity.class
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +33,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void gotoActivity() {
-        Intent intent = new Intent(SplashActivity.this, clazz);
+        Intent intent = new Intent(SplashActivity.this, clazzs[clazzs.length - 1]);
         startActivity(intent);
     }
 }
