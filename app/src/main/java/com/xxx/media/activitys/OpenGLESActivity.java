@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import com.xxx.media.R;
-import com.xxx.media.views.MyGLSurfaceView;
+import com.xxx.media.gl.MyGLSurfaceView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
