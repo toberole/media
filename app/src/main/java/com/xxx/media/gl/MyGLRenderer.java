@@ -26,7 +26,7 @@ import javax.microedition.khronos.opengles.GL10;
  *
  * Vertex Shader - 用于渲染形状的顶点的OpenGLES 图形代码。
  * Fragment Shader - 用于渲染形状的外观（颜色或纹理）的OpenGLES 代码。
- * Program - 一个OpenGLES对象，包含了你想要用来绘制一个或多个形状的shader。
+ * Program - 一个OpenGLES对象，包含了要用来绘制一个或多个形状的shader。
  */
 public class MyGLRenderer implements GLSurfaceView.Renderer {
     private Triangle mTriangle;

@@ -14,10 +14,11 @@ import butterknife.OnClick;
 public class SplashActivity extends AppCompatActivity {
     public static Class[] clazzs = new Class[]{
             SurfaceViewActivity.class,
-            CameraTextureViewActivity.class,
             CameraSurfaceActivity.class,
             MediaMuxerActivity.class,
-            OpenGLESActivity.class
+            OpenGLESActivity.class,
+            CameraTextureViewActivity.class,
+            CameraSurfaceViewActivity.class
     };
 
     @Override

@@ -13,7 +13,9 @@ public class Constant {
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
 
-    public static final String APP_DIR = Environment.getExternalStorageDirectory() + File.separator + "a_media";
+    public static final String APP_VIDEO_DIR = Environment.getExternalStorageDirectory() + File.separator + "a_video_media";
+    public static final String APP_AUDIO_DIR = Environment.getExternalStorageDirectory() + File.separator + "a_audio_media";
+    public static final String APP_PIC_DIR = Environment.getExternalStorageDirectory() + File.separator + "a_pic_media";
 
     public static int screen_w;
     public static int screen_h;

@@ -58,7 +58,7 @@ public class MediaMuxerTask implements Runnable {
                     targetIndex = i;
                     // 获取原视频的帧率
                     frame_rate = mediaFormat.getInteger(MediaFormat.KEY_FRAME_RATE);
-                    targetPath = Constant.APP_DIR + "/" + System.currentTimeMillis() + ".mp4";
+                    targetPath = Constant.APP_VIDEO_DIR + "/" + System.currentTimeMillis() + ".mp4";
                     // 合成为mp4文件
                     mediaMuxer = new MediaMuxer(targetPath, MediaMuxer.OutputFormat.MUXER_OUTPUT_MPEG_4);
                     video_track = mediaMuxer.addTrack(mediaFormat);
