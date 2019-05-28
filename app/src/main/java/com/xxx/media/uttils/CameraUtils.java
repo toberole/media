@@ -1,6 +1,7 @@
 package com.xxx.media.uttils;
 
 import android.app.Activity;
+import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -134,6 +135,25 @@ public class CameraUtils {
         }
         try {
             mCamera.setPreviewDisplay(holder);
+            mCamera.startPreview();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 开始预览
+     *
+     * @param holder
+     */
+    public static void startPreviewDisplay(SurfaceHolder holder, Camera.PreviewCallback cb) {
+        if (mCamera == null) {
+            throw new IllegalStateException("Camera must be set when start preview");
+        }
+        try {
+            mCamera.setPreviewDisplay(holder);
+            // Camera API 打开相机是在哪个线程[带有Looper的线程]，那么onPreviewFrame回调执行就在哪个线程。
+            mCamera.setPreviewCallback(cb);
             mCamera.startPreview();
         } catch (IOException e) {
             e.printStackTrace();
@@ -412,5 +432,9 @@ public class CameraUtils {
      */
     public static int getCameraPreviewThousandFps() {
         return mCameraPreviewFps;
+    }
+
+    public static void startPreviewTexture(SurfaceTexture cameraTexture) {
+
     }
 }

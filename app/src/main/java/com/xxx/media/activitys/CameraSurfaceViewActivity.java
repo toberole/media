@@ -53,6 +53,15 @@ public class CameraSurfaceViewActivity extends NoTitlebarActivity implements Cam
         CameraUtils.takePicture(null/* null 可以取消掉拍照瞬间 "卡卡"的声音 */, this, this);
     }
 
+    @OnClick(R.id.tv_sw_camera)
+    void switchCamera() {
+        if (cameraSurfaceView != null) {
+            CameraUtils.switchCamera(1 - CameraUtils.getCameraID(), cameraSurfaceView.getHolder());
+            // 切换相机后需要重新计算旋转角度
+            mOrientation = CameraUtils.calculateCameraPreviewOrientation(CameraSurfaceViewActivity.this);
+        }
+    }
+
     @Override
     /**
      * Camera.PictureCallback
@@ -92,5 +101,10 @@ public class CameraSurfaceViewActivity extends NoTitlebarActivity implements Cam
      */
     public void onShutter() {
         Log.i(TAG, "----- onShutter -----");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }
