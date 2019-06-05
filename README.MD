@@ -19,10 +19,45 @@ onDrawFrame()：系统在每次重画GLSurfaceView时调用这个方法。使用
 onSurfaceChanged()：当GLSurfaceView的发生变化时，系统调用此方法，这些变化包括GLSurfaceView的大小或设备屏幕方向的变化。
 例如：设备从纵向变为横向时，系统调用此方法。我们应该使用此方法来响应GLSurfaceView容器的改变。
 
-
 为了程序能够使用OpenGL ES 2.0的API，你必须添加以下声明到manifest：
 <uses-feature android:glEsVersion="0x00020000" android:required="true" />
 如果你的应用程序需要使用纹理压缩，你还需要声明你的应用程序需要支持哪种压缩格式。
 <supports-gl-texture android:name="GL_OES_compressed_ETC1_RGB8_texture" />
 <supports-gl-texture android:name="GL_OES_compressed_paletted_texture" />
+
+
+android平台上EGL为openGL提供上下文环境以及窗口管理。
+
+状态机是一个抽象的模型，表示一组状态变量的集合。
+
+OpenGL中的缓冲区：颜色缓冲区、深度缓冲区、模版缓冲区。
+Framebuffer指的是所有这些缓冲区一起串联工作。
+
+OpenGL中图元都是一维、二维、三维的物体
+
+三种方式向着色器传递渲染数据：
+属性、uniform值、纹理
+
+属性之总是以四维向量的形式进行内部存储。
+
+在默认情况下，OpenGL认为具有逆时针方向环绕的多边形是正面的，顺时针方向环绕的多边形是背面的。
+调用glFrontFace()可以改变这种默认行为。
+
+OpenGL3.0引入了GLSL1.3版本
+OpenGL3.1引入了GLSL1.4版本
+OpenGL3.2引入了GLSL1.5版本
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

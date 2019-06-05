@@ -18,8 +18,11 @@ public class SplashActivity extends AppCompatActivity {
             MediaMuxerActivity.class,
             OpenGLESActivity.class,
             CameraTextureViewActivity.class,
-            CameraSurfaceViewActivity.class
+            CameraSurfaceViewActivity.class,
+            OpenGLESTestActivity.class
     };
+
+    private int test_index = 6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +38,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void gotoActivity() {
-        Intent intent = new Intent(SplashActivity.this, clazzs[clazzs.length - 1]);
+        Intent intent = new Intent(SplashActivity.this, clazzs[test_index]);
         startActivity(intent);
     }
 }

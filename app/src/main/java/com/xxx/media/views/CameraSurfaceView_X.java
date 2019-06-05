@@ -5,7 +5,6 @@ import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.xxx.media.uttils.CameraUtils;
 
 public class CameraSurfaceView_X extends SurfaceView implements SurfaceHolder.Callback {
 

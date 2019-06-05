@@ -5,10 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activitys.OpenELESActivity">
+    tools:context=".activitys.OpenGLESTestActivity">
+
     <Button
-        android:id="@+id/btn_play"
+        android:id="@+id/btn_create_egl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="paly" />
+        android:text="btn_create_egl" />
+
 </LinearLayout>

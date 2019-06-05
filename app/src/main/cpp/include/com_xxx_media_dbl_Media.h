@@ -31,6 +31,14 @@ JNIEXPORT jint JNICALL Java_com_xxx_media_dbl_Media_startRecord
 JNIEXPORT jint JNICALL Java_com_xxx_media_dbl_Media_stopRecord
   (JNIEnv *, jclass);
 
+/*
+ * Class:     com_xxx_media_dbl_Media
+ * Method:    createEGL
+ * Signature: (Ljava/lang/Object;)V
+ */
+JNIEXPORT void JNICALL Java_com_xxx_media_dbl_Media_createEGL
+  (JNIEnv *, jclass, jobject);
+
 #ifdef __cplusplus
 }
 #endif
