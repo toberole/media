@@ -17,4 +17,5 @@ target_link_libraries(native-lib
         EGL
         GLESv2
         OpenSLES
+        jnigraphics
 )
