@@ -140,6 +140,12 @@ public class AppUtil {
         }
     }
 
+    public void toast(final String msg) {
+        if (!TextUtils.isEmpty(msg)) {
+            toast(new SpannableString(msg));
+        }
+    }
+
     public void removeMessage(int messageType, Object object) {
         if (null != msgController) {
             msgController.removeMessages(messageType);

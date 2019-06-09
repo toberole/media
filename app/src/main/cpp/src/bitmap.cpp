@@ -3,5 +3,5 @@
 //
 #include <android/bitmap.h>
 
-
-
+#include <android/native_window_jni.h>
+#include <android/native_window.h>
