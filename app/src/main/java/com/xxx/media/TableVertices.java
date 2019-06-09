@@ -4,20 +4,20 @@ public class TableVertices {
     public static float[] tableVerticesWithTriangles = new float[]{
             // x y r g b
             0.0f, 0.0f, 1f, 1f, 1f,
-            -0.5f, -0.5f, 0.7f, 0.7f, 0.7f,
-            0.5f, -0.5f, 0.7f, 0.7f, 0.7f,
+            -0.5f, -0.8f, 0.7f, 0.7f, 0.7f,
+            0.5f, -0.8f, 0.7f, 0.7f, 0.7f,
 
-            0.5f, 0.5f, 0.7f, 0.7f, 0.7f,
-            -0.5f, 0.5f, 0.7f, 0.7f, 0.7f,
-            -0.5f, -0.5f, 0.7f, 0.7f, 0.7f,
+            0.5f, 0.8f, 0.7f, 0.7f, 0.7f,
+            -0.5f, 0.8f, 0.7f, 0.7f, 0.7f,
+            -0.5f, -0.8f, 0.7f, 0.7f, 0.7f,
 
             // line1
             -0.5f, 0.0f, 1f, 0f, 0f,
             0.5f, 0.0f, 1f, 0f, 0f,
 
             // mallets
-            0.0f, -0.25f, 0f, 0f, 1f,
-            0.0f, 0.25f, 1f, 0f, 0f
+            0.0f, -0.4f, 0f, 0f, 1f,
+            0.0f, 0.4f, 1f, 0f, 0f
     };
 
     public static float[] tableVerticesWithTriangles2 = new float[]{
