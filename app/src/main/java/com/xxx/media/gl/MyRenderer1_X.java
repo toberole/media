@@ -4,7 +4,7 @@ import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 
 import com.xxx.media.R;
-import com.xxx.media.TableVertices;
+import com.xxx.media.Vertices;
 import com.xxx.media.uttils.LogUtil;
 import com.xxx.media.uttils.ShaderUtil;
 
@@ -34,7 +34,7 @@ public class MyRenderer1_X implements GLSurfaceView.Renderer {
     private static final int BYTES_PER_FLOAT = 4;
 
     private FloatBuffer vertexData = ByteBuffer
-            .allocateDirect(TableVertices.tableVerticesWithTriangles.length * BYTES_PER_FLOAT)
+            .allocateDirect(Vertices.tableVerticesWithTriangles.length * BYTES_PER_FLOAT)
             .order(ByteOrder.nativeOrder())
             .asFloatBuffer();
 
@@ -47,7 +47,7 @@ public class MyRenderer1_X implements GLSurfaceView.Renderer {
         // 清屏
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 0);
 
-        vertexData.put(TableVertices.tableVerticesWithTriangles);
+        vertexData.put(Vertices.tableVerticesWithTriangles);
 
         String vertex_shader_resource = ShaderUtil.getShaderString(R.raw.simple_vertex_shader);
         LogUtil.i(TAG, "MyRenderer1 onSurfaceCreated vertex_shader_resource: " + vertex_shader_resource);

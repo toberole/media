@@ -5,8 +5,9 @@ import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 
 import com.xxx.media.R;
-import com.xxx.media.TableVertices;
+import com.xxx.media.Vertices;
 import com.xxx.media.uttils.LogUtil;
+import com.xxx.media.uttils.MatrixUtil;
 import com.xxx.media.uttils.ShaderUtil;
 
 import java.nio.ByteBuffer;
@@ -14,8 +15,10 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.opengles.GL;
 import javax.microedition.khronos.opengles.GL10;
+
+import static android.opengl.Matrix.multiplyMM;
+import static android.opengl.Matrix.setIdentityM;
 
 /**
  * onSurfaceCreated  ---->  onSurfaceChanged ----> onDrawFrame ----> onDrawFrame ...
@@ -27,7 +30,7 @@ public class MyRenderer1 implements GLSurfaceView.Renderer {
 
     private static final int BYTES_PER_FLOAT = 4;
 
-    public static final int POSITION_COMPONENT_COUNT = 2;
+    public static final int POSITION_COMPONENT_COUNT = 4;
 
     public static final int COLOR_COMPONENT_COUNT = 3;
 
@@ -44,8 +47,10 @@ public class MyRenderer1 implements GLSurfaceView.Renderer {
 
     public final float[] projectionMatrix = new float[16];
 
+    private final float[] modelMatrix = new float[16];
+
     private FloatBuffer vertexData = ByteBuffer
-            .allocateDirect(TableVertices.tableVerticesWithTriangles.length * BYTES_PER_FLOAT)
+            .allocateDirect(Vertices.tableVerticesWithTriangles.length * BYTES_PER_FLOAT)
             .order(ByteOrder.nativeOrder())
             .asFloatBuffer();
 
@@ -58,7 +63,7 @@ public class MyRenderer1 implements GLSurfaceView.Renderer {
         // 清屏
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 0);
 
-        vertexData.put(TableVertices.tableVerticesWithTriangles);
+        vertexData.put(Vertices.tableVerticesWithTriangles);
 
         String vertex_shader_resource = ShaderUtil.getShaderString(R.raw.simple_vertex_shader);
         LogUtil.i(TAG, "MyRenderer1 onSurfaceCreated vertex_shader_resource: " + vertex_shader_resource);
@@ -114,13 +119,16 @@ public class MyRenderer1 implements GLSurfaceView.Renderer {
         // 设置视口
         GLES20.glViewport(0, 0, width, height);
 
-        float aspectRatio = width > height ? 1.0f * width / height : 1.0f * height / width;
+        MatrixUtil.perspectiveM(projectionMatrix, 45, (float) (1.0 * width / height), 1f, 10f);
 
-        if (width > height) {
-            Matrix.orthoM(projectionMatrix, 0, -aspectRatio, aspectRatio, -1f, 1f, -1f, 1f);
-        } else {
-            Matrix.orthoM(projectionMatrix, 0,-1f, 1f, -aspectRatio, aspectRatio, -1f, 1f);
-        }
+        Matrix.setIdentityM(modelMatrix, 0);
+        Matrix.translateM(modelMatrix, 0, 0f, 0f, -2f);
+//        Matrix.translateM(modelMatrix, 0, 0f, 0f, -2.5f);
+//        Matrix.rotateM(modelMatrix, 0, -60f, -1f, 0f, 0f);
+
+        float[] temp = new float[16];
+        Matrix.multiplyMM(temp, 0, projectionMatrix, 0, modelMatrix, 0);
+        System.arraycopy(temp, 0, projectionMatrix, 0, temp.length);
     }
 
     @Override
@@ -131,7 +139,7 @@ public class MyRenderer1 implements GLSurfaceView.Renderer {
         // 清空屏幕 使用GLES20.glClearColor设置的颜色填充屏幕
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
 
-        GLES20.glUniformMatrix4fv(aMatrixLocation,1,false,projectionMatrix,0);
+        GLES20.glUniformMatrix4fv(aMatrixLocation, 1, false, projectionMatrix, 0);
 
         GLES20.glDrawArrays(GLES20.GL_TRIANGLE_FAN, 0, 6);
 
