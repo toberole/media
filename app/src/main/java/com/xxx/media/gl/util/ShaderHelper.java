@@ -1,13 +1,16 @@
-package com.xxx.media.uttils;
+package com.xxx.media.gl.util;
 
 import android.opengl.GLES20;
+
+import com.xxx.media.uttils.AppUtil;
+import com.xxx.media.uttils.LogUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
 
-public class ShaderUtil {
-    public static final String TAG = ShaderUtil.class.getSimpleName();
+public class ShaderHelper {
+    public static final String TAG = ShaderHelper.class.getSimpleName();
 
     public static String getShaderString(int id) {
         String res = null;
@@ -58,6 +61,7 @@ public class ShaderUtil {
         GLES20.glValidateProgram(programObjectId);
         int[] validataStatus = new int[1];
         GLES20.glGetProgramiv(programObjectId, GLES20.GL_VALIDATE_STATUS, validataStatus, 0);
+
         LogUtil.i(TAG, "validateProgram: " + GLES20.glGetProgramInfoLog(programObjectId));
         LogUtil.i(TAG, "validataStatus[0]: " + validataStatus[0]);
 
@@ -80,5 +84,18 @@ public class ShaderUtil {
         GLES20.glGetShaderiv(shaderObjectId, GLES20.GL_COMPILE_STATUS, compileStatus, 0);
 
         return shaderObjectId;
+    }
+
+    public static int buildProgram(String vertexShaderSource, String fragmentShaderSource) {
+        int program;
+
+        int vertexShader = compileVertexShader(vertexShaderSource);
+        int fragmentShader = compileFragmentShader(fragmentShaderSource);
+
+        program = linProgram(vertexShader, fragmentShader);
+
+        validateProgram(program);
+
+        return program;
     }
 }

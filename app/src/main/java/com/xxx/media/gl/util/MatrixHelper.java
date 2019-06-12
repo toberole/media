@@ -1,6 +1,6 @@
-package com.xxx.media.uttils;
+package com.xxx.media.gl.util;
 
-public class MatrixUtil {
+public class MatrixHelper {
     /**
      * 创建透视投影矩阵
      * @param m 用于接收结果

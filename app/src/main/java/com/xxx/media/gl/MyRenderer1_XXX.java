@@ -6,8 +6,8 @@ import android.opengl.Matrix;
 
 import com.xxx.media.R;
 import com.xxx.media.Vertices;
+import com.xxx.media.gl.util.ShaderHelper;
 import com.xxx.media.uttils.LogUtil;
-import com.xxx.media.uttils.ShaderUtil;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -16,6 +16,8 @@ import java.nio.FloatBuffer;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import static com.xxx.media.Constant.BYTES_PER_FLOAT;
+
 /**
  * onSurfaceCreated  ---->  onSurfaceChanged ----> onDrawFrame ----> onDrawFrame ...
  * <p>
@@ -23,8 +25,6 @@ import javax.microedition.khronos.opengles.GL10;
  */
 public class MyRenderer1_XXX implements GLSurfaceView.Renderer {
     public static final String TAG = MyRenderer1_XXX.class.getSimpleName();
-
-    private static final int BYTES_PER_FLOAT = 4;
 
     public static final int POSITION_COMPONENT_COUNT = 2;
 
@@ -59,22 +59,22 @@ public class MyRenderer1_XXX implements GLSurfaceView.Renderer {
 
         vertexData.put(Vertices.tableVerticesWithTriangles);
 
-        String vertex_shader_resource = ShaderUtil.getShaderString(R.raw.simple_vertex_shader);
+        String vertex_shader_resource = ShaderHelper.getShaderString(R.raw.simple_vertex_shader);
         LogUtil.i(TAG, "MyRenderer1 onSurfaceCreated vertex_shader_resource: " + vertex_shader_resource);
 
-        String fragment_shader_resource = ShaderUtil.getShaderString(R.raw.simple_fragment_shader);
+        String fragment_shader_resource = ShaderHelper.getShaderString(R.raw.simple_fragment_shader);
         LogUtil.i(TAG, "MyRenderer1 onSurfaceCreated fragment_shader_resource: " + fragment_shader_resource);
 
-        int vertex_shader = ShaderUtil.compileVertexShader(vertex_shader_resource);
+        int vertex_shader = ShaderHelper.compileVertexShader(vertex_shader_resource);
         LogUtil.i(TAG, "MyRenderer1 onSurfaceCreated vertex_shader: " + vertex_shader);
 
-        int fragment_shader = ShaderUtil.compileFragmentShader(fragment_shader_resource);
+        int fragment_shader = ShaderHelper.compileFragmentShader(fragment_shader_resource);
         LogUtil.i(TAG, "MyRenderer1 onSurfaceCreated fragment_shaderr: " + fragment_shader);
 
-        program = ShaderUtil.linProgram(vertex_shader, fragment_shader);
+        program = ShaderHelper.linProgram(vertex_shader, fragment_shader);
         LogUtil.i(TAG, "MyRenderer1 onSurfaceCreated program: " + program);
 
-        boolean validate = ShaderUtil.validateProgram(program);
+        boolean validate = ShaderHelper.validateProgram(program);
         LogUtil.i(TAG, "MyRenderer1 onSurfaceCreated validate: " + validate);
 
         GLES20.glUseProgram(program);

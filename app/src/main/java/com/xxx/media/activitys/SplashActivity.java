@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.xxx.media.Constant;
 import com.xxx.media.R;
+import com.xxx.media.Test;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;

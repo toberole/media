@@ -1,24 +1,21 @@
 package com.xxx.media.gl;
 
+import android.content.Context;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 
 import com.xxx.media.R;
-import com.xxx.media.Vertices;
+import com.xxx.media.data.ColorShadeProgram;
+import com.xxx.media.data.Mallet;
+import com.xxx.media.data.Table;
+import com.xxx.media.data.TextureShaderProgram;
+import com.xxx.media.gl.util.MatrixHelper;
+import com.xxx.media.gl.util.TextureHelper;
 import com.xxx.media.uttils.LogUtil;
-import com.xxx.media.uttils.MatrixUtil;
-import com.xxx.media.uttils.ShaderUtil;
-
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
-
-import static android.opengl.Matrix.multiplyMM;
-import static android.opengl.Matrix.setIdentityM;
 
 /**
  * onSurfaceCreated  ---->  onSurfaceChanged ----> onDrawFrame ----> onDrawFrame ...
@@ -28,88 +25,36 @@ import static android.opengl.Matrix.setIdentityM;
 public class MyRenderer1 implements GLSurfaceView.Renderer {
     public static final String TAG = MyRenderer1.class.getSimpleName();
 
-    private static final int BYTES_PER_FLOAT = 4;
-
-    public static final int POSITION_COMPONENT_COUNT = 4;
-
-    public static final int COLOR_COMPONENT_COUNT = 3;
-
-    public static final int STRIDE = (POSITION_COMPONENT_COUNT + COLOR_COMPONENT_COUNT) * BYTES_PER_FLOAT;
-
-    public static final String A_POSITION = "a_Position";
-    private int aPositionLocation;
-
-    public static final String A_COLOR = "a_Color";
-    private int aColorLocation;
-
-    public static final String U_MATRIX = "u_Matrix";
-    private int aMatrixLocation;
-
     public final float[] projectionMatrix = new float[16];
-
     private final float[] modelMatrix = new float[16];
 
-    private FloatBuffer vertexData = ByteBuffer
-            .allocateDirect(Vertices.tableVerticesWithTriangles.length * BYTES_PER_FLOAT)
-            .order(ByteOrder.nativeOrder())
-            .asFloatBuffer();
+    private Table table;
+    private Mallet mallet;
 
-    private int program;
+    private TextureShaderProgram textureProgram;
+    private ColorShadeProgram colorProgram;
+
+    private int texture;
+
+    private Context context;
+
+    public MyRenderer1(Context context) {
+        this.context = context;
+    }
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         LogUtil.i(TAG, "MyRenderer1 onSurfaceCreated");
-
         // 清屏
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 0);
 
-        vertexData.put(Vertices.tableVerticesWithTriangles);
+        table = new Table();
+        mallet = new Mallet();
 
-        String vertex_shader_resource = ShaderUtil.getShaderString(R.raw.simple_vertex_shader);
-        LogUtil.i(TAG, "MyRenderer1 onSurfaceCreated vertex_shader_resource: " + vertex_shader_resource);
+        textureProgram = new TextureShaderProgram(context);
+        colorProgram = new ColorShadeProgram(context);
 
-        String fragment_shader_resource = ShaderUtil.getShaderString(R.raw.simple_fragment_shader);
-        LogUtil.i(TAG, "MyRenderer1 onSurfaceCreated fragment_shader_resource: " + fragment_shader_resource);
-
-        int vertex_shader = ShaderUtil.compileVertexShader(vertex_shader_resource);
-        LogUtil.i(TAG, "MyRenderer1 onSurfaceCreated vertex_shader: " + vertex_shader);
-
-        int fragment_shader = ShaderUtil.compileFragmentShader(fragment_shader_resource);
-        LogUtil.i(TAG, "MyRenderer1 onSurfaceCreated fragment_shaderr: " + fragment_shader);
-
-        program = ShaderUtil.linProgram(vertex_shader, fragment_shader);
-        LogUtil.i(TAG, "MyRenderer1 onSurfaceCreated program: " + program);
-
-        boolean validate = ShaderUtil.validateProgram(program);
-        LogUtil.i(TAG, "MyRenderer1 onSurfaceCreated validate: " + validate);
-
-        GLES20.glUseProgram(program);
-
-        aPositionLocation = GLES20.glGetAttribLocation(program, A_POSITION);
-        LogUtil.i(TAG, "MyRenderer1 onSurfaceCreated aPositionLocation: " + aPositionLocation);
-
-        aColorLocation = GLES20.glGetAttribLocation(program, A_COLOR);
-        LogUtil.i(TAG, "MyRenderer1 onSurfaceCreated aColorLocation: " + aColorLocation);
-
-        aMatrixLocation = GLES20.glGetUniformLocation(program, U_MATRIX);
-        LogUtil.i(TAG, "MyRenderer1 onSurfaceCreated aMatrixLocation: " + aMatrixLocation);
-
-        int error = GLES20.glGetError();
-        LogUtil.i(TAG, "MyRenderer1 onSurfaceCreated error: " + error);
-//        GLES20.GL_INVALID_ENUM
-
-        ////////////////////////////////////
-        vertexData.position(0);
-        GLES20.glVertexAttribPointer(aPositionLocation, POSITION_COMPONENT_COUNT,
-                GLES20.GL_FLOAT, false,
-                STRIDE, vertexData);
-        GLES20.glEnableVertexAttribArray(aPositionLocation);
-
-        vertexData.position(POSITION_COMPONENT_COUNT);
-        GLES20.glVertexAttribPointer(aColorLocation, COLOR_COMPONENT_COUNT,
-                GLES20.GL_FLOAT, false,
-                STRIDE, vertexData);
-        GLES20.glEnableVertexAttribArray(aColorLocation);
+        texture = TextureHelper.loadTexture(context, R.drawable.test02);
     }
 
     @Override
@@ -119,7 +64,7 @@ public class MyRenderer1 implements GLSurfaceView.Renderer {
         // 设置视口
         GLES20.glViewport(0, 0, width, height);
 
-        MatrixUtil.perspectiveM(projectionMatrix, 45, (float) (1.0 * width / height), 1f, 10f);
+        MatrixHelper.perspectiveM(projectionMatrix, 45, (float) (1.0 * width / height), 1f, 10f);
 
         Matrix.setIdentityM(modelMatrix, 0);
         Matrix.translateM(modelMatrix, 0, 0f, 0f, -2f);
@@ -139,14 +84,14 @@ public class MyRenderer1 implements GLSurfaceView.Renderer {
         // 清空屏幕 使用GLES20.glClearColor设置的颜色填充屏幕
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
 
-        GLES20.glUniformMatrix4fv(aMatrixLocation, 1, false, projectionMatrix, 0);
+        textureProgram.useProgram();
+        textureProgram.setUniforms(projectionMatrix, texture);
+        table.bindData(textureProgram);
+        table.draw();
 
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLE_FAN, 0, 6);
-
-        GLES20.glDrawArrays(GLES20.GL_LINES, 6, 2);
-
-        GLES20.glDrawArrays(GLES20.GL_POINTS, 8, 1);
-
-        GLES20.glDrawArrays(GLES20.GL_POINTS, 9, 1);
+        colorProgram.useProgram();
+        colorProgram.setUniforms(projectionMatrix);
+        mallet.bindData(colorProgram);
+        mallet.draw();
     }
 }

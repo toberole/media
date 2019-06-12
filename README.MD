@@ -76,7 +76,30 @@ sin(a)     cos(a)   0   0
   0           0     0   1
 
 
+OpenGL 中的纹理可以用来表示图像、照片、甚至由一个数学算法生成的分形数据。
 
+纹理过滤
+当纹理大小被扩大或者缩小的时候 需要使用纹理过滤做相应的处理。
+最近邻过滤：
+    放大纹理时，它的锯齿效果看起来很明显。
+
+双线性过滤：
+    双线性过滤使用双线性插值平滑像素之间的过度。比较适合处理放大，处理缩小时，缩小到一定的大小就效果不好。
+
+
+## 获取着色器程序内成员变量的id
+GLES20.glGetAttribLocation 获取着色器程序中，指定为attribute类型变量的id。
+GLES20.glGetUniformLocation 获取着色器程序中，指定为uniform类型变量的id。
+
+## 向着色器传递数据
+void glVertexAttribPointer (int index, int size, int type, boolean normalized, int stride, Buffer ptr)
+参数含义：
+index：指定要修改的顶点着色器中顶点变量id；
+size：指定每个顶点属性的组件数量。必须为1、2、3或者4。如position是由3个（x,y,z）组成，而颜色是4个（r,g,b,a））；
+type：指定数组中每个组件的数据类型。可用的符号常量有GL_BYTE, GL_UNSIGNED_BYTE, GL_SHORT,GL_UNSIGNED_SHORT, GL_FIXED, 和 GL_FLOAT，初始值为GL_FLOAT；
+normalized：指定当被访问时，固定点数据值是否应该被归一化（GL_TRUE）或者直接转换为固定点值（GL_FALSE）；
+stride：指定连续顶点属性之间的偏移量。如果为0，那么顶点属性会被理解为：它们是紧密排列在一起的。初始值为0。如果normalized被设置为GL_TRUE，意味着整数型的值会被映射至区间-1,1，或者区间[0,1]（无符号整数），反之，这些值会被直接转换为浮点值而不进行归一化处理；
+ptr：顶点的缓冲数据。
 
 
 

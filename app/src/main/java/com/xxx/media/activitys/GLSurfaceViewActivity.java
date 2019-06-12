@@ -43,7 +43,7 @@ public class GLSurfaceViewActivity extends NoTitlebarActivity {
         // 设置版本
         glSurfaceView.setEGLContextClientVersion(2);
         // 设置render
-        myRenderer1 = new MyRenderer1();
+        myRenderer1 = new MyRenderer1(this);
         glSurfaceView.setRenderer(myRenderer1);
 
         setContentView(glSurfaceView);

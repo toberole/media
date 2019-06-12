@@ -19,4 +19,7 @@ public class Constant {
 
     public static int screen_w;
     public static int screen_h;
+
+    public static final int BYTES_PER_FLOAT = 4;
+
 }

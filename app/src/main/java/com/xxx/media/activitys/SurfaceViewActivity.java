@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.media.AudioRecord;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.SurfaceHolder;
@@ -64,7 +63,7 @@ public class SurfaceViewActivity extends AppCompatActivity {
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setStyle(Paint.Style.STROKE);
         Canvas canvas = holder.lockCanvas();
-        Bitmap bitmap = BitmapFactory.decodeResource(SurfaceViewActivity.this.getResources(), R.drawable.test);
+        Bitmap bitmap = BitmapFactory.decodeResource(SurfaceViewActivity.this.getResources(), R.drawable.test01);
         canvas.drawBitmap(bitmap, 0, 0, paint);
         holder.unlockCanvasAndPost(canvas);
 

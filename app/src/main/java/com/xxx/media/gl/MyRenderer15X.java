@@ -2,9 +2,11 @@ package com.xxx.media.gl;
 
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
+import android.opengl.Matrix;
 
 import com.xxx.media.R;
 import com.xxx.media.Vertices;
+import com.xxx.media.gl.util.MatrixHelper;
 import com.xxx.media.gl.util.ShaderHelper;
 import com.xxx.media.uttils.LogUtil;
 
@@ -22,16 +24,27 @@ import static com.xxx.media.Constant.BYTES_PER_FLOAT;
  * <p>
  * glsurface onDrawFrame 是在非UI线程中渲染
  */
-public class MyRenderer1_X implements GLSurfaceView.Renderer {
-    public static final String TAG = MyRenderer1_X.class.getSimpleName();
+public class MyRenderer15X implements GLSurfaceView.Renderer {
+    public static final String TAG = MyRenderer15X.class.getSimpleName();
 
-    public static final int POSITION_COMPONENT_COUNT = 2;
+    public static final int POSITION_COMPONENT_COUNT = 4;
 
-    public static final String U_COLOR = "u_Color";
-    private int uColorLocation;
+    public static final int COLOR_COMPONENT_COUNT = 3;
+
+    public static final int STRIDE = (POSITION_COMPONENT_COUNT + COLOR_COMPONENT_COUNT) * BYTES_PER_FLOAT;
 
     public static final String A_POSITION = "a_Position";
     private int aPositionLocation;
+
+    public static final String A_COLOR = "a_Color";
+    private int aColorLocation;
+
+    public static final String U_MATRIX = "u_Matrix";
+    private int aMatrixLocation;
+
+    public final float[] projectionMatrix = new float[16];
+
+    private final float[] modelMatrix = new float[16];
 
     private FloatBuffer vertexData = ByteBuffer
             .allocateDirect(Vertices.tableVerticesWithTriangles.length * BYTES_PER_FLOAT)
@@ -69,16 +82,31 @@ public class MyRenderer1_X implements GLSurfaceView.Renderer {
 
         GLES20.glUseProgram(program);
 
-        uColorLocation = GLES20.glGetUniformLocation(program, U_COLOR);
-        LogUtil.i(TAG, "MyRenderer1 onSurfaceCreated uColorLocation: " + uColorLocation);
-
         aPositionLocation = GLES20.glGetAttribLocation(program, A_POSITION);
         LogUtil.i(TAG, "MyRenderer1 onSurfaceCreated aPositionLocation: " + aPositionLocation);
 
-        vertexData.position(0);
-        GLES20.glVertexAttribPointer(aPositionLocation, POSITION_COMPONENT_COUNT, GLES20.GL_FLOAT, false, 0, vertexData);
+        aColorLocation = GLES20.glGetAttribLocation(program, A_COLOR);
+        LogUtil.i(TAG, "MyRenderer1 onSurfaceCreated aColorLocation: " + aColorLocation);
 
+        aMatrixLocation = GLES20.glGetUniformLocation(program, U_MATRIX);
+        LogUtil.i(TAG, "MyRenderer1 onSurfaceCreated aMatrixLocation: " + aMatrixLocation);
+
+        int error = GLES20.glGetError();
+        LogUtil.i(TAG, "MyRenderer1 onSurfaceCreated error: " + error);
+//        GLES20.GL_INVALID_ENUM
+
+        ////////////////////////////////////
+        vertexData.position(0);
+        GLES20.glVertexAttribPointer(aPositionLocation, POSITION_COMPONENT_COUNT,
+                GLES20.GL_FLOAT, false,
+                STRIDE, vertexData);
         GLES20.glEnableVertexAttribArray(aPositionLocation);
+
+        vertexData.position(POSITION_COMPONENT_COUNT);
+        GLES20.glVertexAttribPointer(aColorLocation, COLOR_COMPONENT_COUNT,
+                GLES20.GL_FLOAT, false,
+                STRIDE, vertexData);
+        GLES20.glEnableVertexAttribArray(aColorLocation);
     }
 
     @Override
@@ -87,6 +115,17 @@ public class MyRenderer1_X implements GLSurfaceView.Renderer {
 
         // 设置视口
         GLES20.glViewport(0, 0, width, height);
+
+        MatrixHelper.perspectiveM(projectionMatrix, 45, (float) (1.0 * width / height), 1f, 10f);
+
+        Matrix.setIdentityM(modelMatrix, 0);
+        Matrix.translateM(modelMatrix, 0, 0f, 0f, -2f);
+//        Matrix.translateM(modelMatrix, 0, 0f, 0f, -2.5f);
+//        Matrix.rotateM(modelMatrix, 0, -60f, -1f, 0f, 0f);
+
+        float[] temp = new float[16];
+        Matrix.multiplyMM(temp, 0, projectionMatrix, 0, modelMatrix, 0);
+        System.arraycopy(temp, 0, projectionMatrix, 0, temp.length);
     }
 
     @Override
@@ -97,16 +136,14 @@ public class MyRenderer1_X implements GLSurfaceView.Renderer {
         // 清空屏幕 使用GLES20.glClearColor设置的颜色填充屏幕
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
 
-        GLES20.glUniform4f(aPositionLocation, 1.0f, 1.0f, 1.0f, 1.0f);
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, 6);
+        GLES20.glUniformMatrix4fv(aMatrixLocation, 1, false, projectionMatrix, 0);
 
-        GLES20.glUniform4f(uColorLocation, 1.0f, 0.0f, 0.0f, 1.0f);
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLE_FAN, 0, 6);
+
         GLES20.glDrawArrays(GLES20.GL_LINES, 6, 2);
 
-        GLES20.glUniform4f(uColorLocation, 0.0f, 0.0f, 1.0f, 1.0f);
         GLES20.glDrawArrays(GLES20.GL_POINTS, 8, 1);
 
-        GLES20.glUniform4f(uColorLocation, 1.0f, 0.0f, 0.0f, 1.0f);
         GLES20.glDrawArrays(GLES20.GL_POINTS, 9, 1);
     }
 }
