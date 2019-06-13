@@ -4,11 +4,11 @@ import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 
+import com.sogou.speech.base.uttils.LogUtil;
 import com.xxx.media.R;
 import com.xxx.media.Vertices;
 import com.xxx.media.gl.util.MatrixHelper;
 import com.xxx.media.gl.util.ShaderHelper;
-import com.xxx.media.uttils.LogUtil;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;

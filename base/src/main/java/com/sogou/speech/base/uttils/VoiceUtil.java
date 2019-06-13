@@ -1,4 +1,4 @@
-package com.xxx.media.uttils;
+package com.sogou.speech.base.uttils;
 
 public class VoiceUtil {
     public static float decibel(byte[] voice) {

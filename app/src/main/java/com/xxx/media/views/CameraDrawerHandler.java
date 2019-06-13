@@ -8,7 +8,8 @@ import android.os.Looper;
 import android.os.Message;
 import android.view.SurfaceHolder;
 
-import com.xxx.media.uttils.CameraUtils;
+import com.sogou.speech.base.uttils.CameraUtils;
+
 
 public class CameraDrawerHandler extends Handler implements SurfaceTexture.OnFrameAvailableListener {
     public static final String TAG = CameraDrawerHandler.class.getSimpleName();

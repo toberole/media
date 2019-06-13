@@ -5,16 +5,14 @@ import android.content.Context;
 import android.content.pm.ConfigurationInfo;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
-import android.widget.LinearLayout;
 
+import com.sogou.speech.base.uttils.AppUtil;
+import com.sogou.speech.base.uttils.LogUtil;
 import com.xxx.media.gl.MyRenderer1;
-import com.xxx.media.uttils.AppUtil;
-import com.xxx.media.uttils.LogUtil;
 
 public class GLSurfaceViewActivity extends NoTitlebarActivity {
     public static final String TAG = GLSurfaceViewActivity.class.getSimpleName();
     private GLSurfaceView glSurfaceView;
-    private LinearLayout ll_container;
     private MyRenderer1 myRenderer1;
 
     @Override

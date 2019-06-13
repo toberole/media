@@ -3,7 +3,8 @@ package com.xxx.media.views;
 import android.graphics.PointF;
 import android.opengl.GLES30;
 
-import com.xxx.media.uttils.CameraUtils;
+
+import com.sogou.speech.base.uttils.CameraUtils;
 
 import java.nio.FloatBuffer;
 import java.util.LinkedList;

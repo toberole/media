@@ -5,6 +5,7 @@ import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 
+import com.sogou.speech.base.uttils.LogUtil;
 import com.xxx.media.R;
 import com.xxx.media.data.ColorShadeProgram;
 import com.xxx.media.data.Mallet;
@@ -12,7 +13,6 @@ import com.xxx.media.data.Table;
 import com.xxx.media.data.TextureShaderProgram;
 import com.xxx.media.gl.util.MatrixHelper;
 import com.xxx.media.gl.util.TextureHelper;
-import com.xxx.media.uttils.LogUtil;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -93,5 +93,8 @@ public class MyRenderer1 implements GLSurfaceView.Renderer {
         colorProgram.setUniforms(projectionMatrix);
         mallet.bindData(colorProgram);
         mallet.draw();
+
+        // GLES20.glDeleteProgram();
+
     }
 }

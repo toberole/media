@@ -3,8 +3,8 @@ package com.xxx.media.data;
 import android.content.Context;
 import android.opengl.GLES20;
 
+import com.sogou.speech.base.uttils.IOUtil;
 import com.xxx.media.gl.util.ShaderHelper;
-import com.xxx.media.uttils.TextResourceReader;
 
 public class ShaderProgram {
     protected static final String U_MATRIX = "u_Matrix";
@@ -18,8 +18,8 @@ public class ShaderProgram {
 
     protected ShaderProgram(Context context, int vertexShaderResourceId, int fragmentShaderResourceId) {
         program = ShaderHelper.buildProgram(
-                TextResourceReader.readTextFileFromResource(context, vertexShaderResourceId),
-                TextResourceReader.readTextFileFromResource(context, fragmentShaderResourceId)
+                IOUtil.readTextFileFromResource(context, vertexShaderResourceId),
+                IOUtil.readTextFileFromResource(context, fragmentShaderResourceId)
         );
     }
 

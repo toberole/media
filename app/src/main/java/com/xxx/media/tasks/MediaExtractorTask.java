@@ -5,7 +5,6 @@ import android.media.MediaFormat;
 import android.util.Log;
 
 import java.io.IOException;
-import java.nio.ByteBuffer;
 
 /**
  * 音视频分离

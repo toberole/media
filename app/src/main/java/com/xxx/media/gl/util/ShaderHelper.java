@@ -2,8 +2,8 @@ package com.xxx.media.gl.util;
 
 import android.opengl.GLES20;
 
-import com.xxx.media.uttils.AppUtil;
-import com.xxx.media.uttils.LogUtil;
+import com.sogou.speech.base.uttils.AppUtil;
+import com.sogou.speech.base.uttils.LogUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -82,6 +82,8 @@ public class ShaderHelper {
         // 检查编译状态
         int[] compileStatus = new int[1];
         GLES20.glGetShaderiv(shaderObjectId, GLES20.GL_COMPILE_STATUS, compileStatus, 0);
+
+        LogUtil.i(TAG, "compileStatus: " + compileStatus[0]);
 
         return shaderObjectId;
     }

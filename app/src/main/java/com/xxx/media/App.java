@@ -3,9 +3,10 @@ package com.xxx.media;
 import android.app.Application;
 import android.util.DisplayMetrics;
 
+import com.sogou.speech.base.uttils.AppUtil;
+import com.sogou.speech.base.uttils.CrashHandler;
+import com.sogou.speech.demo01.Initializer;
 import com.tencent.bugly.crashreport.CrashReport;
-import com.xxx.media.uttils.AppUtil;
-import com.xxx.media.uttils.CrashHandler;
 
 import java.io.File;
 
@@ -17,6 +18,8 @@ public class App extends Application {
         AppUtil.getInstance().init(this);
         CrashHandler.getInstance().init(this, null, null);
         CrashReport.initCrashReport(getApplicationContext(), "ff76ba0cbd", true);
+
+        Initializer.init(this);
 
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         Constant.screen_w = displayMetrics.widthPixels;

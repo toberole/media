@@ -4,9 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 
+import com.sogou.speech.base.uttils.AppUtil;
 import com.xxx.media.R;
 import com.xxx.media.tasks.MediaMuxerTask;
-import com.xxx.media.uttils.AppUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

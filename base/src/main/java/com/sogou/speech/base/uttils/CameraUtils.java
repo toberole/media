@@ -1,4 +1,4 @@
-package com.xxx.media.uttils;
+package com.sogou.speech.base.uttils;
 
 import android.app.Activity;
 import android.graphics.SurfaceTexture;

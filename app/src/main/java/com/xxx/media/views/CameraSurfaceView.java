@@ -5,7 +5,8 @@ import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.xxx.media.uttils.CameraUtils;
+import com.sogou.speech.base.uttils.CameraUtils;
+
 
 public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
 

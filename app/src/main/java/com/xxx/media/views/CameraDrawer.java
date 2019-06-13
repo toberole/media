@@ -3,7 +3,7 @@ package com.xxx.media.views;
 import android.os.HandlerThread;
 import android.view.SurfaceHolder;
 
-import com.xxx.media.uttils.CameraUtils;
+import com.sogou.speech.base.uttils.CameraUtils;
 
 
 public class CameraDrawer {

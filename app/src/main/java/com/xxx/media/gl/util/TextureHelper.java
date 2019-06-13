@@ -6,6 +6,9 @@ import android.graphics.BitmapFactory;
 import android.opengl.GLES20;
 import android.opengl.GLUtils;
 
+import com.sogou.speech.base.uttils.LogUtil;
+
+
 public class TextureHelper {
     public static final String TAG = TextureHelper.class.getSimpleName();
 
@@ -40,6 +43,8 @@ public class TextureHelper {
         GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0);
 
         bitmap.recycle();
+
+        LogUtil.i(TAG, "textureObjectIds[0]: " + textureObjectIds[0]);
 
         return textureObjectIds[0];
     }

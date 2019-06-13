@@ -1,4 +1,4 @@
-package com.xxx.media.uttils;
+package com.sogou.speech.base.uttils;
 
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;

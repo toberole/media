@@ -7,10 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.sogou.speech.base.uttils.CameraUtils;
+import com.sogou.speech.base.uttils.ImageUtils;
 import com.xxx.media.Constant;
 import com.xxx.media.R;
-import com.xxx.media.uttils.CameraUtils;
-import com.xxx.media.uttils.ImageUtils;
 import com.xxx.media.views.CameraSurfaceView;
 
 import java.io.BufferedOutputStream;
