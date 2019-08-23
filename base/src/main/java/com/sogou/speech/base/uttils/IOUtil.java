@@ -24,21 +24,7 @@ public class IOUtil {
         return new String(bos.toByteArray());
     }
 
-    public static void closeQuietly(Closeable... closeable) {
-        if (closeable != null) {
-            try {
-                for (Closeable c : closeable) {
-                    if (null != c) {
-                        c.close();
-                    }
-                }
-            } catch (IOException ioe) {
-                ioe.printStackTrace();
-            }
-        }
-    }
-
-    public static String readTextFileFromResource(Context context, int id) {
+    public static String readTextFromResource(Context context, int id) {
         String res = null;
         try {
             InputStream in = context.getResources().openRawResource(id);
@@ -56,5 +42,19 @@ public class IOUtil {
             res = null;
         }
         return res;
+    }
+
+    public static void closeQuietly(Closeable... closeable) {
+        if (closeable != null) {
+            for (Closeable c : closeable) {
+                try {
+                    if (null != c) {
+                        c.close();
+                    }
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                }
+            }
+        }
     }
 }

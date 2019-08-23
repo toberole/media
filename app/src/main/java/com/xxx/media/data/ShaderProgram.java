@@ -18,8 +18,8 @@ public class ShaderProgram {
 
     protected ShaderProgram(Context context, int vertexShaderResourceId, int fragmentShaderResourceId) {
         program = ShaderHelper.buildProgram(
-                IOUtil.readTextFileFromResource(context, vertexShaderResourceId),
-                IOUtil.readTextFileFromResource(context, fragmentShaderResourceId)
+                IOUtil.readTextFromResource(context, vertexShaderResourceId),
+                IOUtil.readTextFromResource(context, fragmentShaderResourceId)
         );
     }
 

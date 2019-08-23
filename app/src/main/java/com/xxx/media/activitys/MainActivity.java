@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements Camera.PreviewCal
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.demo01_activity_main);
         ActivityCompat.requestPermissions(MainActivity.this, Constant.PS, 110);
         surfaceView = findViewById(R.id.surfaceView);
         surfaceHolder = surfaceView.getHolder();
